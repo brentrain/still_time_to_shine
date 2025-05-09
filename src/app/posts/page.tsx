@@ -51,58 +51,62 @@ export default function Posts() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Blog Posts</h1>
-        <Link
-          href="/posts/new"
-          className="bg-primary text-white px-4 py-2 rounded hover:bg-opacity-90"
-        >
-          New Post
-        </Link>
-      </div>
-
-      <div className="grid gap-6">
-        {posts.map((post) => (
-          <div
-            key={post.id}
-            className="border rounded-lg p-6 hover:shadow-lg transition-shadow"
+      <div className="max-w-4xl mx-auto">
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold font-raleway">Blog Posts</h1>
+          <Link
+            href="/posts/new"
+            className="bg-primary text-white px-4 py-2 rounded hover:bg-opacity-90"
           >
-            {post.imageUrl && (
-              <div className="mb-4 relative h-48 w-full">
-                <Image
-                  src={post.imageUrl}
-                  alt={post.title}
-                  fill
-                  className="object-cover rounded-lg"
-                />
+            New Post
+          </Link>
+        </div>
+
+        <div className="grid gap-8">
+          {posts.map((post) => (
+            <div
+              key={post.id}
+              className="border rounded-lg p-6 hover:shadow-lg transition-shadow bg-white"
+            >
+              {post.imageUrl && (
+                <div className="mb-4 relative h-64 w-full">
+                  <Image
+                    src={post.imageUrl}
+                    alt={post.title}
+                    fill
+                    className="object-cover rounded-lg"
+                  />
+                </div>
+              )}
+              <h2 className="text-2xl font-semibold mb-2 font-raleway">{post.title}</h2>
+              <p className="text-gray-600 mb-4">
+                {post.content.substring(0, 200)}...
+              </p>
+              <div className="flex justify-between items-center">
+                <Link
+                  href={`/posts/${post.id}`}
+                  className="text-primary hover:underline"
+                >
+                  Read more
+                </Link>
+                <div className="flex space-x-4">
+                  <Link
+                    href={`/posts/${post.id}/edit`}
+                    className="text-blue-600 hover:underline"
+                  >
+                    Edit
+                  </Link>
+                  <button
+                    onClick={() => deletePost(post.id)}
+                    className="text-red-600 hover:underline"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
-            )}
-            <h2 className="text-2xl font-semibold mb-2">{post.title}</h2>
-            <p className="text-gray-600 mb-4">
-              {post.content.substring(0, 200)}...
-            </p>
-            <div className="flex space-x-4">
-              <Link
-                href={`/posts/${post.id}`}
-                className="text-primary hover:underline"
-              >
-                Read more
-              </Link>
-              <Link
-                href={`/posts/${post.id}/edit`}
-                className="text-blue-600 hover:underline"
-              >
-                Edit
-              </Link>
-              <button
-                onClick={() => deletePost(post.id)}
-                className="text-red-600 hover:underline"
-              >
-                Delete
-              </button>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   )
